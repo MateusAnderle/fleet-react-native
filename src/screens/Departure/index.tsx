@@ -23,6 +23,7 @@ import { Header } from "../../components/Header";
 import { LicensePlateInput } from "../../components/LicensePlateInput";
 import { TextAreaInput } from "../../components/TextAreaInput";
 
+import { openSettings } from '../../utils/openSettings';
 import { licensePlateValidate } from "../../utils/licensePlateValidate";
 
 import * as S from "./styles";
@@ -81,7 +82,11 @@ export function Departure() {
 
       if(!backgroundPermissions.granted) {
         setIsResgistering(false)
-        return Alert.alert('Localização', 'É necessário permitir que o App tenha acesso localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo."')
+        return Alert.alert(
+          'Localização', 
+          'É necessário permitir que o App tenha acesso localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo."',
+          [{ text: 'Abrir configurações', onPress: openSettings }]
+        )
       }
 
       await startLocationTask();
@@ -93,6 +98,11 @@ export function Departure() {
             user_id: user!.id,
             license_plate: licensePlate.toUpperCase(),
             description,
+            coords:[{
+              latitude: currentCoords.latitude,
+              longitude: currentCoords.longitude,
+              timestamp: new Date().getTime()
+            }]
           })
         );
       });
@@ -146,11 +156,15 @@ export function Departure() {
     return (
       <S.Container>
         <Header title="Saída" />
-        <S.Message>
-          Você precisa permitir que o aplicativo tenha acesso a localização para
-          acessar essa funcionalidade. Por favor, acesse as configurações do seu
-          dispositivo para conceder a permissão ao aplicativo.
-        </S.Message>
+        <S.MessageContent>
+          <S.Message>
+            Você precisa permitir que o aplicativo tenha acesso a 
+            localização para acessar essa funcionalidade. Por favor, acesse as
+            configurações do seu dispositivo para conceder a permissão ao aplicativo.
+          </S.Message>
+
+          <Button title='Abrir configurações' onPress={openSettings} />
+        </S.MessageContent>
       </S.Container>
     );
   }
