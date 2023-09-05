@@ -14,7 +14,7 @@ The **IgniteFleet** is a React Native application that runs on both Android and 
 ---
 
 <div align="center" >
-<video src="[https://i.imgur.com/s9pMHgG.mp4](https://github.com/MateusAnderle/fleet-react-native/assets/100309091/d5355ad4-b355-4a00-a030-f39f9725ea3c)" width="300">
+<img src="[https://i.imgur.com/s9pMHgG.mp4](https://github.com/MateusAnderle/fleet-react-native/assets/100309091/d5355ad4-b355-4a00-a030-f39f9725ea3c)" width="300">
 </div>
 
 ---
