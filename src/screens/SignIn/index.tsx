@@ -43,15 +43,15 @@ export function SignIn() {
         app.logIn(credentials).catch((error) => {
           console.log(error);
           Alert.alert(
-            "Entrar",
-            "Não foi possível conectar-se a sua conta google."
+            "Sign in.",
+            "It was not possible to connect to your Google account."
           );
           setIsAuthenticating(false);
         });
       } else {
         Alert.alert(
-          "Entrar",
-          "Não foi possível conectar-se a sua conta google."
+          "Sign in.",
+          "It was not possible to connect to your Google account."
         );
         setIsAuthenticating(false);
       }
@@ -62,10 +62,10 @@ export function SignIn() {
     <S.Container source={backgroundImg}>
       <S.Title>Ignite Fleet</S.Title>
 
-      <S.Slogan>Gestão de uso de veículos</S.Slogan>
+      <S.Slogan>Vehicle Usage Management</S.Slogan>
 
       <Button
-        title="Entrar com Google"
+        title="Sign in with Google"
         onPress={handleGoogleSignIn}
         isLoading={isAuthenticating}
       />

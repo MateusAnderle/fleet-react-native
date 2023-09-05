@@ -34,7 +34,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <SafeAreaProvider style={{ backgroundColor: theme.COLORS.GRAY_800 }}>
           {!netInfo.isConnected && (
-            <TopMessage title="Você está off-line" icon={WifiSlash} />
+            <TopMessage title="You are offline" icon={WifiSlash} />
           )}
           <StatusBar
             barStyle="light-content"

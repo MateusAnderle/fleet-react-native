@@ -23,7 +23,7 @@ import { Header } from "../../components/Header";
 import { LicensePlateInput } from "../../components/LicensePlateInput";
 import { TextAreaInput } from "../../components/TextAreaInput";
 
-import { openSettings } from '../../utils/openSettings';
+import { openSettings } from "../../utils/openSettings";
 import { licensePlateValidate } from "../../utils/licensePlateValidate";
 
 import * as S from "./styles";
@@ -59,34 +59,37 @@ export function Departure() {
       if (!licensePlateValidate(licensePlate)) {
         licensePlateRef.current?.focus();
         return Alert.alert(
-          "Placa inválida",
-          "A placa é inválida. Por favor, informa a placa correta."
+          "Invalid license plate",
+          "The license plate is invalid. Please provide the correct plate."
         );
       }
 
       if (description.trim().length === 0) {
         descriptionRef.current?.focus();
         return Alert.alert(
-          "Finalidade",
-          "Por favor, informe a finalidade da utilização do veículo"
+          "Purpose",
+          "Please provide the purpose of vehicle usage"
         );
       }
 
-      if(!currentCoords?.latitude && !currentCoords?.longitude) {
-        return Alert.alert('Localização', 'Não foi possível obter a localização atual. Tente novamente.')
+      if (!currentCoords?.latitude && !currentCoords?.longitude) {
+        return Alert.alert(
+          "Location",
+          "Unable to retrieve current location. Please try again."
+        );
       }
 
       setIsResgistering(true);
 
-      const backgroundPermissions = await requestBackgroundPermissionsAsync()
+      const backgroundPermissions = await requestBackgroundPermissionsAsync();
 
-      if(!backgroundPermissions.granted) {
-        setIsResgistering(false)
+      if (!backgroundPermissions.granted) {
+        setIsResgistering(false);
         return Alert.alert(
-          'Localização', 
-          'É necessário permitir que o App tenha acesso localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo."',
-          [{ text: 'Abrir configurações', onPress: openSettings }]
-        )
+          "Location",
+          'You need to allow the app to access your location in the background. Please go to your device settings and enable "Allow all the time"',
+          [{ text: "Open settings", onPress: openSettings }]
+        );
       }
 
       await startLocationTask();
@@ -98,21 +101,26 @@ export function Departure() {
             user_id: user!.id,
             license_plate: licensePlate.toUpperCase(),
             description,
-            coords:[{
-              latitude: currentCoords.latitude,
-              longitude: currentCoords.longitude,
-              timestamp: new Date().getTime()
-            }]
+            coords: [
+              {
+                latitude: currentCoords.latitude,
+                longitude: currentCoords.longitude,
+                timestamp: new Date().getTime(),
+              },
+            ],
           })
         );
       });
 
-      Alert.alert("Saída", "Saída do veículo registrada com sucesso.");
+      Alert.alert("Departure", "Vehicle departure successfully registered.");
 
       goBack();
     } catch (error) {
       console.log(error);
-      Alert.alert("Erro", "Não possível registrar a saída do veículo.");
+      Alert.alert(
+        "Error",
+        "It was not possible to register the vehicle departure."
+      );
       setIsResgistering(false);
     }
   }
@@ -155,15 +163,15 @@ export function Departure() {
   if (!locationForegroundPermission) {
     return (
       <S.Container>
-        <Header title="Saída" />
+        <Header title="Departure" />
         <S.MessageContent>
           <S.Message>
-            Você precisa permitir que o aplicativo tenha acesso a 
-            localização para acessar essa funcionalidade. Por favor, acesse as
-            configurações do seu dispositivo para conceder a permissão ao aplicativo.
+            You need to allow the app to access your location to access this
+            feature. Please go to your device settings to grant permission to
+            the app.
           </S.Message>
 
-          <Button title='Abrir configurações' onPress={openSettings} />
+          <Button title="Open settings" onPress={openSettings} />
         </S.MessageContent>
       </S.Container>
     );
@@ -175,7 +183,7 @@ export function Departure() {
 
   return (
     <S.Container>
-      <Header title="Saída" />
+      <Header title="Departure" />
 
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView>
@@ -184,13 +192,13 @@ export function Departure() {
             {currentAddress && (
               <LocationInfo
                 icon={CarSimple}
-                label="Localização atual"
+                label="Current location"
                 description={currentAddress}
               />
             )}
             <LicensePlateInput
               ref={licensePlateRef}
-              label="Placa do veículo"
+              label="License plate"
               placeholder="BRA1234"
               onSubmitEditing={() => {
                 descriptionRef.current?.focus();
@@ -201,8 +209,8 @@ export function Departure() {
 
             <TextAreaInput
               ref={descriptionRef}
-              label="Finalizade"
-              placeholder="Vou utilizar o veículo para..."
+              label="Purpose"
+              placeholder="I will use the vehicle for..."
               onSubmitEditing={handleDepartureRegister}
               returnKeyType="send"
               blurOnSubmit
@@ -210,7 +218,7 @@ export function Departure() {
             />
 
             <Button
-              title="Registar Saída"
+              title="Register Departure"
               onPress={handleDepartureRegister}
               isLoading={isRegistering}
             />

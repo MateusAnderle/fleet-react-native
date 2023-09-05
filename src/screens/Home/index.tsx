@@ -47,8 +47,8 @@ export function Home() {
       setVehicleInUse(vehicle);
     } catch (error) {
       Alert.alert(
-        "Veículo em uso",
-        "Não foi possível carregar o veículo em uso."
+        "Vehicle in use",
+        "It was not possible to load the vehicle in use."
       );
       console.log(error);
     }
@@ -66,14 +66,14 @@ export function Home() {
           licensePlate: item.license_plate,
           isSync: lastSync > item.updated_at!.getTime(),
           created: dayjs(item.created_at).format(
-            "[Saída em] DD/MM/YYYY [às] HH:mm"
+            "[Departure on] DD/MM/YYYY [at] HH:mm"
           ),
         };
       });
       setVehicleHistoric(formattedHistoric);
     } catch (error) {
       console.log(error);
-      Alert.alert("Histórico", "Não foi possível carregar o histórico.");
+      Alert.alert("History", "Unable to load the history.");
     }
   }
 
@@ -94,11 +94,11 @@ export function Home() {
 
       Toast.show({
         type: "info",
-        text1: "Todos os dados estão sincronizado.",
+        text1: "All data synchronized.",
       });
     }
     if (percentage < 100) {
-      setPercentageToSync(`${percentage.toFixed(0)}% sincronizado.`);
+      setPercentageToSync(`${percentage.toFixed(0)}% synchronized.`);
     }
   }
 
@@ -160,7 +160,7 @@ export function Home() {
           onPress={handleRegisterMoviment}
         />
 
-        <S.Title>Histórico</S.Title>
+        <S.Title>History</S.Title>
 
         <FlatList
           data={vehicleHistoric}
@@ -173,7 +173,7 @@ export function Home() {
           )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
-          ListEmptyComponent={<S.Label>Nenhum registro de utilização.</S.Label>}
+          ListEmptyComponent={<S.Label>No usage records.</S.Label>}
         />
       </S.Content>
     </S.Container>

@@ -24,7 +24,7 @@ export function HomeHeader() {
         placeholder="L184i9ofbHof00ayjsay~qj[ayj@"
       />
       <S.Greeting>
-        <S.Message>Olá</S.Message>
+        <S.Message>Hello,</S.Message>
 
         <S.Name>{user?.profile.name}</S.Name>
       </S.Greeting>

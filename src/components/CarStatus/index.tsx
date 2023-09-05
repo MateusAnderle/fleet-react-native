@@ -10,9 +10,9 @@ type Props = TouchableOpacityProps & {
 export function CarStatus({ licensePlate = null, ...rest }: Props) {
   const Icon = licensePlate ? Car : Key;
   const message = licensePlate
-    ? `Veículo ${licensePlate} em uso. `
-    : "Nenhum veículo em uso. ";
-  const status = licensePlate ? "chegada" : "saída";
+    ? `Vehicle ${licensePlate} in use. `
+    : "No vehicles in use. ";
+  const status = licensePlate ? "arrival" : "departure";
 
   const theme = useTheme();
 
@@ -25,9 +25,7 @@ export function CarStatus({ licensePlate = null, ...rest }: Props) {
       <S.Message style={{ textAlignVertical: "center" }}>
         {message}
 
-        <S.TextHighlight>
-          Clique aqui para registrar a {status}.
-        </S.TextHighlight>
+        <S.TextHighlight>Click here to register the {status}.</S.TextHighlight>
       </S.Message>
     </S.Container>
   );

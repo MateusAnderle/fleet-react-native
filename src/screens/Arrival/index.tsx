@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 import * as S from "./styles";
 
@@ -14,7 +14,7 @@ import { X } from "phosphor-react-native";
 
 import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
-import { Loading } from '../../components/Loading';
+import { Loading } from "../../components/Loading";
 
 import { getLastAsyncTimestamp } from "../../libs/asyncStorage/syncStorage";
 import { stopLocationTask } from "../../tasks/backgroundLocationTask";
@@ -23,8 +23,8 @@ import { LatLng } from "react-native-maps";
 
 import { Map } from "../../components/Map";
 import { Locations } from "../../components/Locations";
-import { getAddressLocation } from '../../utils/getAddressLocation';
-import { LocationInfoProps } from '../../components/LocationInfo';
+import { getAddressLocation } from "../../utils/getAddressLocation";
+import { LocationInfoProps } from "../../components/LocationInfo";
 
 type RouteParamProps = {
   id: string;
@@ -32,10 +32,12 @@ type RouteParamProps = {
 
 export function Arrival() {
   const [dataNotSynced, setDataNotSynced] = useState(false);
-  const [coordinates, setCoordinates] = useState<LatLng[]>([])
-  const [departure, setDeparture] = useState<LocationInfoProps>({} as LocationInfoProps)
-  const [arrival, setArrival] = useState<LocationInfoProps | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [coordinates, setCoordinates] = useState<LatLng[]>([]);
+  const [departure, setDeparture] = useState<LocationInfoProps>(
+    {} as LocationInfoProps
+  );
+  const [arrival, setArrival] = useState<LocationInfoProps | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const route = useRoute();
   const { id } = route.params as RouteParamProps;
@@ -44,12 +46,12 @@ export function Arrival() {
 
   const historic = useObject(Historic, new BSON.UUID(id));
 
-  const title = historic?.status === "departure" ? "Chegada" : "Detalhes";
+  const title = historic?.status === "departure" ? "Arrival" : "Details";
 
   function handleRemoveVehicleUsage() {
-    Alert.alert("Cancelar", "Cancelar a utilização do veículo?", [
-      { text: "Não", style: "cancel" },
-      { text: "Sim", onPress: () => removeVehicleUsage() },
+    Alert.alert("Cancel", "Cancel vehicle usage?", [
+      { text: "No", style: "cancel" },
+      { text: "Yes", onPress: () => removeVehicleUsage() },
     ]);
   }
 
@@ -58,7 +60,7 @@ export function Arrival() {
       realm.delete(historic);
     });
 
-    await stopLocationTask()
+    await stopLocationTask();
 
     goBack();
   }
@@ -67,93 +69,92 @@ export function Arrival() {
     try {
       if (!historic) {
         return Alert.alert(
-          "Erro",
-          "Não foi possível obter os dados para registrar a chegada do veículo."
+          "ErroR",
+          "It was not possible to obtain the data to register the vehicle's arrival."
         );
       }
 
-      const locations = await getStorageLocations()
+      const locations = await getStorageLocations();
 
       realm.write(() => {
         historic.status = "arrival";
         historic.updated_at = new Date();
-        historic.coords.push(...locations)
+        historic.coords.push(...locations);
       });
 
-      await stopLocationTask()
+      await stopLocationTask();
 
-      Alert.alert("Chegada", "Chegada registrada com sucesso.");
+      Alert.alert("Arrival", "Arrival successfully registered.");
       goBack();
     } catch (error) {
-      Alert.alert("Erro", "Não foi possível registar a chegada do veículo.");
+      Alert.alert("Error", "Vehicle arrival could not be registered.");
     }
   }
 
   async function getLocationsInfo() {
-    if(!historic) {
-      return
+    if (!historic) {
+      return;
     }
-    
+
     const lastSync = await getLastAsyncTimestamp();
-    const updatedAt= historic!.updated_at.getTime(); 
+    const updatedAt = historic!.updated_at.getTime();
     setDataNotSynced(updatedAt > lastSync);
 
-   if(historic?.status === 'departure') {
+    if (historic?.status === "departure") {
       const locationsStorage = await getStorageLocations();
       setCoordinates(locationsStorage);
     } else {
       setCoordinates(historic?.coords ?? []);
     }
 
-    if(historic?.coords[0]) {
-      const departureStreetName = await getAddressLocation(historic?.coords[0])
+    if (historic?.coords[0]) {
+      const departureStreetName = await getAddressLocation(historic?.coords[0]);
 
       setDeparture({
-        label: `Saíndo em ${departureStreetName ?? ''}`,
-        description: dayjs(new Date(historic?.coords[0].timestamp)).format('DD/MM/YYYY [às] HH:mm')
-      })
+        label: `Departing from ${departureStreetName ?? ""}`,
+        description: dayjs(new Date(historic?.coords[0].timestamp)).format(
+          "DD/MM/YYYY [at] HH:mm"
+        ),
+      });
     }
 
-    if(historic?.status === 'arrival') {
+    if (historic?.status === "arrival") {
       const lastLocation = historic.coords[historic.coords.length - 1];
-      const arrivalStreetName = await getAddressLocation(lastLocation)
+      const arrivalStreetName = await getAddressLocation(lastLocation);
 
       setArrival({
-        label: `Chegando em ${arrivalStreetName ?? ''}`,
-        description: dayjs(new Date(lastLocation.timestamp)).format('DD/MM/YYYY [às] HH:mm')
-      })
+        label: `Arriving at ${arrivalStreetName ?? ""}`,
+        description: dayjs(new Date(lastLocation.timestamp)).format(
+          "DD/MM/YYYY [at] HH:mm"
+        ),
+      });
     }
 
-    setIsLoading(false)
+    setIsLoading(false);
   }
 
   useEffect(() => {
-    getLocationsInfo()
-  },[historic])
+    getLocationsInfo();
+  }, [historic]);
 
-  if(isLoading) {
-    return <Loading />
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
     <S.Container>
       <Header title={title} />
 
-      {coordinates.length > 0 && (
-        <Map coordinates={coordinates} />
-      )}
+      {coordinates.length > 0 && <Map coordinates={coordinates} />}
 
       <S.Content>
-      <Locations 
-          departure={departure}
-          arrival={arrival}
-        />
+        <Locations departure={departure} arrival={arrival} />
 
-        <S.Label>Placa do veículo</S.Label>
+        <S.Label>Vehicle license plate</S.Label>
 
         <S.LicensePlate>{historic?.license_plate}</S.LicensePlate>
 
-        <S.Label>Finalidade</S.Label>
+        <S.Label>Purpose</S.Label>
 
         <S.Description>{historic?.description}</S.Description>
       </S.Content>
@@ -161,13 +162,13 @@ export function Arrival() {
         <S.Footer>
           <ButtonIcon icon={X} onPress={handleRemoveVehicleUsage} />
 
-          <Button title="Registrar chegada" onPress={handleArrivalRegister} />
+          <Button title="Register arrival" onPress={handleArrivalRegister} />
         </S.Footer>
       )}
       {dataNotSynced && (
         <S.AsyncMessage>
-          Sincronização da{" "}
-          {historic?.status === "departure" ? "partida" : "chegada"} pendente
+          Pending {historic?.status === "departure" ? "departure" : "arrival"}{" "}
+          synchronization
         </S.AsyncMessage>
       )}
     </S.Container>
