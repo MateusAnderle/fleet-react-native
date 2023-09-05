@@ -13,7 +13,9 @@ The **IgniteFleet** is a React Native application that runs on both Android and 
 
 ---
 
-![Simulator Screen Recording - iPhone 13 - 2023-09-04 at 21 28 58](https://github.com/MateusAnderle/fleet-react-native/assets/100309091/9ac099c1-d4ad-435a-af46-6c159856a4e7)
+<div align="center" >
+<img src="https://github.com/MateusAnderle/fleet-react-native/assets/100309091/9ac099c1-d4ad-435a-af46-6c159856a4e7" width="300">
+</div>
 
 ---
 
