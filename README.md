@@ -9,7 +9,7 @@ The **IgniteFleet** is a React Native application that runs on both Android and 
   <a href="#page_facing_up-technologies-used">Technologies</a> &nbsp;|&nbsp;
   <a href="#package-how-to-download-and-run-the-project">Download and Run</a> &nbsp;|&nbsp;
   <a href="#rocket-developed-by-mateus-anderle-da-silva-get-in-touch">Get in touch</a>
-</h3>
+</h3> 
 
 ---
 
