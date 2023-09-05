@@ -14,7 +14,7 @@ The **IgniteFleet** is a React Native application that runs on both Android and 
 ---
 
 <div align="center" >
-<img src="https://github.com/MateusAnderle/animated-quiz/assets/100309091/483d67bf-640e-4273-8b87-d6cda57e473e" width="300">
+<video src="https://i.imgur.com/s9pMHgG.mp4" width="300">
 </div>
 
 ---
@@ -38,18 +38,24 @@ Upon completing the activity, the user can review the details by selecting one o
 - Integrated maps
 - Database integrated and cloud-synchronized with Mongo - Atlas
 
-<h3 align="center">Login</h3>
+<h3 align="center">SplashScreen and SignIn</h3>
 <div align="center" >
-  <img src="https://i.imgur.com/60YbwUt.png" width=250 /> &nbsp;&nbsp;
-  <img src="https://i.imgur.com/MTbGvPn.png" width=250 /> &nbsp;&nbsp;
-  <img src="https://i.imgur.com/tUkFhiN.png" width=250 />
+  <img src="https://i.imgur.com/HtkIsY7.png" width=250 /> &nbsp;&nbsp;
+  <img src="https://i.imgur.com/EvtN1cu.png" width=250 /> 
 </div>
 
-<h3 align="center">Product details</h3>
+<h3 align="center">Homescreen and Activity register</h3>
 <div align="center" >
-  <img src="https://i.imgur.com/aThnsuy.png" width=250 /> &nbsp;&nbsp;
-  <img src="https://i.imgur.com/Kqky5Fx.png" width=250 /> &nbsp;&nbsp;
-  <img src="https://i.imgur.com/p6YYzXo.png" width=250 />
+  <img src="https://i.imgur.com/wjQbm8Q.png" width=250 /> &nbsp;&nbsp;
+  <img src="https://i.imgur.com/rjUNxYs.png" width=250 /> &nbsp;&nbsp;
+  <img src="https://i.imgur.com/LeO86T8.png" width=250 />
+</div>
+
+<h3 align="center">Arrival register and Detail</h3>
+<div align="center" >
+  <img src="https://i.imgur.com/AlCvilX.png" width=250 /> &nbsp;&nbsp;
+  <img src="https://i.imgur.com/YDJEDCf.png" width=250 /> &nbsp;&nbsp;
+  <img src="https://i.imgur.com/cBGsIPa.png" width=250 />
 </div>
 
 ## :bookmark: Minimum Requirements
