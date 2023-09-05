@@ -47,7 +47,7 @@ Upon completing the activity, the user can review the details by selecting one o
 
 <h3 align="center">Homescreen and Activity register</h3>
 <div align="center" >
-  <img src="https://i.imgur.com/wjQbm8Q.png" width=250 /> &nbsp;&nbsp;
+  <img src="https://i.imgur.com/RTdqYS8.png" width=250 /> &nbsp;&nbsp;
   <img src="https://i.imgur.com/rjUNxYs.png" width=250 /> &nbsp;&nbsp;
   <img src="https://i.imgur.com/LeO86T8.png" width=250 />
 </div>
